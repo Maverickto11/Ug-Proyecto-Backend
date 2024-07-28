@@ -1,16 +1,40 @@
+using BackendProyecto.Repositorio;
+using BackendProyecto.TuDbContext;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers()
+        .AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+            options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+            options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+        }); builder.Services.AddScoped<IRepositorioMovie, RepositorioMovie>();
+
+builder.Services.AddDbContext<TmdbContext>(opciones =>
+    opciones.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "API de Biblioteca", Version = "v1" });
+});
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    app.UseDeveloperExceptionPage();
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "API de Biblioteca v1");
+        c.RoutePrefix = string.Empty; // Para que Swagger UI esté disponible en la raíz (https://localhost:7215/)
+    });
 }
 
 app.UseHttpsRedirection();
@@ -20,6 +44,8 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+app.MapControllers(); // Asegúrate de tener este mapeo
 app.MapRazorPages();
 
 app.Run();
+
