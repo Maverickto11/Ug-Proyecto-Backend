@@ -16,7 +16,7 @@ internal class Program
 
         service.AddDbContext<TmdbContext>(optionsBuilder =>
             optionsBuilder.UseNpgsql("Host=localhost; Database=BdPeliculas; Username=postgres; Password=12345"));
-
+        
         serviceProvider = service.BuildServiceProvider();
         repositorioMovie = serviceProvider.GetService<IRepositorioMovie>();
 

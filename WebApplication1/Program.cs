@@ -12,9 +12,19 @@ builder.Services.AddControllers()
             options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
             options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
         }); builder.Services.AddScoped<IRepositorioMovie, RepositorioMovie>();
+           
 
 builder.Services.AddDbContext<TmdbContext>(opciones =>
     opciones.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Registrar repositorios
+builder.Services.AddScoped<IRepositorioMovie, RepositorioMovie>();
+builder.Services.AddScoped<IGenreRepository, GenreRepository>();
+builder.Services.AddScoped<IMovieGenreRepository, MovieGenreRepository>();
+
+// Registrar servicios
+builder.Services.AddScoped<IGenreService, GenreService>();
+
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -22,6 +32,18 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "API de Biblioteca", Version = "v1" });
 });
+
+builder.Services.AddCors(opctions =>
+{
+    opctions.AddPolicy("NuevaPolitica", app =>
+    {
+        app.AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    }
+    );
+}
+);
 
 var app = builder.Build();
 
@@ -38,6 +60,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("NuevaPolitica");
+
 app.UseStaticFiles();
 
 app.UseRouting();

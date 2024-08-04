@@ -15,16 +15,10 @@ namespace BackendProyecto.Entidades
         public int GenreId { get; set; }
 
         // Navegación
+        [JsonIgnore]
         public Movie Movie { get; set; }
-        public Genre Genre { get; set; }
+        public Genre? Genre { get; set; }
 
-        // Define la clave primaria compuesta
-        /*public class MovieGenreConfiguration : IEntityTypeConfiguration<MovieGenre>
-        {
-            public void Configure(EntityTypeBuilder<MovieGenre> builder)
-            {
-                builder.HasKey(mg => new { mg.MovieId, mg.GenreId });
-            }
-        }*/
+   
     }
 }

@@ -12,5 +12,9 @@ namespace BackendProyecto.Repositorio
         Task<IEnumerable<Movie>> ObtenerTodasLasPeliculas();
         Task<Movie> ObtenerPeliculaPorId(int movieId);
         Task<IEnumerable<Movie>> ObtenerPeliculasPorGenero(int genreId);
+        Task<Pelicula> Agregar(Pelicula movie);
+
+        Task<Movie> AddPeliculaAsync(Movie pelicula);
+
     }
 }

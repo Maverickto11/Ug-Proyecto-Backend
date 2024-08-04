@@ -14,11 +14,12 @@ namespace BackendProyecto.Entidades
         public DateTime? ReleaseDate { get; set; }
         public string Overview { get; set; }
         public string PosterPath { get; set; }
-        public string BackdropPath { get; set; }
-        public decimal Rating { get; set; }
-        public int VoteCount { get; set; }
+        public string? BackdropPath { get; set; }
+        public decimal? Rating { get; set; }
+        public int? VoteCount { get; set; }
         public int? Duration { get; set; }
 
-        public ICollection<MovieGenre> MovieGenres { get; set; }
+        [JsonIgnore]
+        public ICollection<MovieGenre?> MovieGenres { get; set; } = new List<MovieGenre?>();
     }
 }

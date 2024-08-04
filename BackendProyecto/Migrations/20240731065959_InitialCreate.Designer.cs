@@ -3,6 +3,7 @@ using System;
 using BackendProyecto.TuDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BackendProyecto.Migrations
 {
     [DbContext(typeof(TmdbContext))]
-    partial class TmdbContextModelSnapshot : ModelSnapshot
+    [Migration("20240731065959_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,6 +51,7 @@ namespace BackendProyecto.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("MovieId"));
 
                     b.Property<string>("BackdropPath")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int?>("Duration")
@@ -61,7 +65,7 @@ namespace BackendProyecto.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<decimal?>("Rating")
+                    b.Property<decimal>("Rating")
                         .HasColumnType("numeric");
 
                     b.Property<DateTime?>("ReleaseDate")
@@ -71,7 +75,7 @@ namespace BackendProyecto.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("VoteCount")
+                    b.Property<int>("VoteCount")
                         .HasColumnType("integer");
 
                     b.HasKey("MovieId");
@@ -120,7 +124,7 @@ namespace BackendProyecto.Migrations
                     b.HasOne("BackendProyecto.Entidades.Genre", "Genre")
                         .WithMany("MovieGenres")
                         .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("BackendProyecto.Entidades.Movie", "Movie")

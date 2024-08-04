@@ -13,6 +13,6 @@ namespace BackendProyecto.Entidades
         public string Name { get; set; }
 
         [JsonIgnore]
-        public ICollection<MovieGenre> MovieGenres { get; set; }
+        public ICollection<MovieGenre> MovieGenres { get; set; } = new List<MovieGenre>();
     }
 }

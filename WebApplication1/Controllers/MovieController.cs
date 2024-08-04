@@ -2,6 +2,7 @@
 using BackendProyecto.Repositorio;
 using BackendProyecto.TuDbContext;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -46,9 +47,38 @@ namespace WebApplication1.Controllers
         {
             var peliculas = await _repositorioPeliculas.ObtenerPeliculasPorGenero(idGenero);
             return Ok(peliculas);
+        }   
+
+        // POST: api/Movie
+        [HttpPost]
+        public async Task<ActionResult<Movie>> Agregar([FromBody] Movie pelicula)
+        {
+            await _repositorioPeliculas.AddPeliculaAsync(pelicula);
+            return CreatedAtAction("ObtenerPeliculaPorId", new { id = pelicula.MovieId }, pelicula);
         }
     }
 }
+//Task<ActionResult<Movie>>
+       /* [HttpPost]
+        public async Task<IActionResult> PostPelicula([FromBody] Pelicula peliculaData)
+        {
+            if (peliculaData == null || string.IsNullOrEmpty(peliculaData.Title) || string.IsNullOrEmpty(peliculaData.Overview))
+            {
+                return BadRequest("Title and Overview are required.");
+            }
+
+            var pelicula = new Pelicula
+            {
+                Title = peliculaData.Title,
+                Overview = peliculaData.Overview
+            };
+
+            var createdPelicula = await _repositorioPeliculas.AddPeliculaAsync(pelicula);
+
+            return CreatedAtAction(nameof(PostPelicula), new { id = createdPelicula.MovieId }, createdPelicula);
+        }*/
+
+
 
 
 

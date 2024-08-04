@@ -43,6 +43,18 @@ namespace BackendProyecto.Repositorio
                // .ThenInclude(mg => mg.Genre) // Si tienes una entidad Genre relacionada
                 .ToListAsync();
         }
+        public async Task<Pelicula> Agregar(Pelicula movie)
+        {
+            _contexto.Set<Pelicula>().Add(movie);
+            await _contexto.SaveChangesAsync();
+            return movie;
+        }
 
+        public async Task<Movie> AddPeliculaAsync(Movie movie)
+        {
+            _contexto.Set<Movie>().Add(movie);
+            await _contexto.SaveChangesAsync();
+            return movie;
+        }
     }
 }
