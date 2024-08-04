@@ -25,6 +25,9 @@ builder.Services.AddScoped<IMovieGenreRepository, MovieGenreRepository>();
 // Registrar servicios
 builder.Services.AddScoped<IGenreService, GenreService>();
 
+//Login
+builder.Services.AddScoped<ILoginRepositoriy, LoginRepositoriy>();
+
 
 // Add services to the container.
 builder.Services.AddRazorPages();

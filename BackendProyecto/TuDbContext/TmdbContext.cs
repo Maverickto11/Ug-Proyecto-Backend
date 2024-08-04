@@ -13,10 +13,11 @@ namespace BackendProyecto.TuDbContext
          public DbSet<Movie> Movies { get; set; }
          public DbSet<Genre> Genres { get; set; }
          public DbSet<MovieGenre> MovieGenres { get; set; }
-
+         public DbSet<Usuario> Usuarios { get; set; }
          public DbSet<Pelicula> Peliculas { get; set; }
+         public DbSet<AutenticacionRespuesta> AutenticacionRespuestas { get; set; }   
 
-         protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
          {
              base.OnModelCreating(modelBuilder);
 
@@ -37,11 +38,14 @@ namespace BackendProyecto.TuDbContext
 
 
             modelBuilder.Entity<Pelicula>();
+            modelBuilder.Entity<Usuario>().HasKey(u => u.Id);
+            modelBuilder.Ignore<AutenticacionRespuesta>();
 
 
-             // Aplica la configuración para MovieGenre
-             //modelBuilder.ApplyConfiguration(new MovieGenre.MovieGenreConfiguration());
-         }
+
+            // Aplica la configuración para MovieGenre
+            //modelBuilder.ApplyConfiguration(new MovieGenre.MovieGenreConfiguration());
+        }
 
 
 
@@ -69,6 +73,6 @@ namespace BackendProyecto.TuDbContext
 
 
 
-           
+
     }
 }
