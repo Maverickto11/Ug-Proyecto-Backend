@@ -21,10 +21,21 @@ namespace WebApplication1.Controllers
             var usuario = await _authService.Register(usuarioDto, usuarioDto.Password);
             if (usuario == null)
             {
+                return BadRequest(new { exito = false, mensaje = "No se pudo registrar el usuario." });
+            }
+            return Ok(new { exito = true, mensaje = "Registro exitoso!", usuario });
+        }
+
+        /*public async Task<IActionResult> Register([FromBody] Usuario usuarioDto)
+        {
+
+            var usuario = await _authService.Register(usuarioDto, usuarioDto.Password);
+            if (usuario == null)
+            {
                 return BadRequest("No se pudo registrar el usuario.");
             }
             return Ok(usuario);
-        }
+        }*/
 
         /* [HttpPost("login")]
          public async Task<IActionResult> Login([FromBody] Usuario loginDto)
