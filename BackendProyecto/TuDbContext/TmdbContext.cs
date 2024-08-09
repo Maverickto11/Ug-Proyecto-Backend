@@ -18,6 +18,7 @@ namespace BackendProyecto.TuDbContext
          public DbSet<Pelicula> Peliculas { get; set; }
          public DbSet<AutenticacionRespuesta> AutenticacionRespuestas { get; set; }
          public DbSet<Series> Series { get; set; }
+         public DbSet<Favorite> Favorites { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
          {

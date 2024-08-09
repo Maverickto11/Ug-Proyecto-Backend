@@ -3,6 +3,7 @@ using System;
 using BackendProyecto.TuDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BackendProyecto.Migrations
 {
     [DbContext(typeof(TmdbContext))]
-    partial class TmdbContextModelSnapshot : ModelSnapshot
+    [Migration("20240809122100_v18")]
+    partial class v18
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,16 +33,18 @@ namespace BackendProyecto.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("AddedDate")
+                    b.Property<DateTime>("AddedDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("MovieId")
                         .HasColumnType("integer");
 
                     b.Property<string>("MovieTitle")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("PosterPath")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("UserId")
