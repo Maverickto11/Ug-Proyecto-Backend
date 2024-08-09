@@ -3,6 +3,7 @@ using System;
 using BackendProyecto.TuDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BackendProyecto.Migrations
 {
     [DbContext(typeof(TmdbContext))]
-    partial class TmdbContextModelSnapshot : ModelSnapshot
+    [Migration("20240809040407_V7")]
+    partial class V7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,15 +90,20 @@ namespace BackendProyecto.Migrations
 
             modelBuilder.Entity("BackendProyecto.Entidades.MovieGenre", b =>
                 {
-                    b.Property<int?>("MovieId")
+                    b.Property<int>("MovieId")
                         .HasColumnType("integer");
 
                     b.Property<int>("GenreId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("SeriesId")
+                        .HasColumnType("integer");
+
                     b.HasKey("MovieId", "GenreId");
 
                     b.HasIndex("GenreId");
+
+                    b.HasIndex("SeriesId");
 
                     b.ToTable("MovieGenres");
                 });
@@ -170,21 +178,6 @@ namespace BackendProyecto.Migrations
                     b.ToTable("Series");
                 });
 
-            modelBuilder.Entity("BackendProyecto.Entidades.SeriesGenre", b =>
-                {
-                    b.Property<int?>("SeriesId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("GenreId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("SeriesId", "GenreId");
-
-                    b.HasIndex("GenreId");
-
-                    b.ToTable("SeriesGenres");
-                });
-
             modelBuilder.Entity("BackendProyecto.Entidades.Usuario", b =>
                 {
                     b.Property<int>("Id")
@@ -223,26 +216,13 @@ namespace BackendProyecto.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("BackendProyecto.Entidades.Series", "Series")
+                        .WithMany("SeriesGenres")
+                        .HasForeignKey("SeriesId");
+
                     b.Navigation("Genre");
 
                     b.Navigation("Movie");
-                });
-
-            modelBuilder.Entity("BackendProyecto.Entidades.SeriesGenre", b =>
-                {
-                    b.HasOne("BackendProyecto.Entidades.Genre", "Genre")
-                        .WithMany("SeriesGenres")
-                        .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .IsRequired();
-
-                    b.HasOne("BackendProyecto.Entidades.Series", "Series")
-                        .WithMany("SeriesGenres")
-                        .HasForeignKey("SeriesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Genre");
 
                     b.Navigation("Series");
                 });
@@ -250,8 +230,6 @@ namespace BackendProyecto.Migrations
             modelBuilder.Entity("BackendProyecto.Entidades.Genre", b =>
                 {
                     b.Navigation("MovieGenres");
-
-                    b.Navigation("SeriesGenres");
                 });
 
             modelBuilder.Entity("BackendProyecto.Entidades.Movie", b =>

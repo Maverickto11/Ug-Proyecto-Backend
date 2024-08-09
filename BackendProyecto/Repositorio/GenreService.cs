@@ -11,11 +11,12 @@ namespace BackendProyecto.Repositorio
     {
         private readonly IGenreRepository _genreRepository;
         private readonly IMovieGenreRepository _movieGenreRepository;
-
-        public GenreService(IGenreRepository genreRepository, IMovieGenreRepository movieGenreRepository)
+        private readonly ISeriesGenreRepository _seriesGenreRepository;
+        public GenreService(IGenreRepository genreRepository, IMovieGenreRepository movieGenreRepository, ISeriesGenreRepository seriesGenreRepository)
         {
             _genreRepository = genreRepository;
             _movieGenreRepository = movieGenreRepository;
+            _seriesGenreRepository = seriesGenreRepository;
         }
 
         public async Task<IEnumerable<Genre>> GetGenresAsync()
@@ -29,8 +30,19 @@ namespace BackendProyecto.Repositorio
             {
                 MovieId = movieId,
                 GenreId = genreId
+
             };
             await _movieGenreRepository.AddMovieGenreAsync(movieGenre);
+        }
+        public async Task AddGenreToSeriesAsync(int serieId, int genreId)
+        {
+            var seriesGenre = new SeriesGenre
+            {
+                SeriesId = serieId,
+                GenreId = genreId
+
+            };
+            await _seriesGenreRepository.AddSeriesGenreAsync(seriesGenre);
         }
     }
 

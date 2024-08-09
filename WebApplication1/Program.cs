@@ -21,7 +21,9 @@ builder.Services.AddDbContext<TmdbContext>(opciones =>
 builder.Services.AddScoped<IRepositorioMovie, RepositorioMovie>();
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<IMovieGenreRepository, MovieGenreRepository>();
-
+//Series
+builder.Services.AddScoped<IRepositorioSeries, RepositorioSeries>();
+builder.Services.AddScoped<ISeriesGenreRepository, SeriesGenreRepository>();
 // Registrar servicios
 builder.Services.AddScoped<IGenreService, GenreService>();
 
@@ -32,6 +34,8 @@ builder.Services.AddScoped<ILoginRepositoriy, LoginRepositoriy>();
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddSwaggerGen(c =>
+
+
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "API de Biblioteca", Version = "v1" });
 });

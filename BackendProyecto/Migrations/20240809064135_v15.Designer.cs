@@ -3,6 +3,7 @@ using System;
 using BackendProyecto.TuDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BackendProyecto.Migrations
 {
     [DbContext(typeof(TmdbContext))]
-    partial class TmdbContextModelSnapshot : ModelSnapshot
+    [Migration("20240809064135_v15")]
+    partial class v15
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -182,7 +185,7 @@ namespace BackendProyecto.Migrations
 
                     b.HasIndex("GenreId");
 
-                    b.ToTable("SeriesGenres");
+                    b.ToTable("SeriesGenre");
                 });
 
             modelBuilder.Entity("BackendProyecto.Entidades.Usuario", b =>
@@ -233,7 +236,7 @@ namespace BackendProyecto.Migrations
                     b.HasOne("BackendProyecto.Entidades.Genre", "Genre")
                         .WithMany("SeriesGenres")
                         .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("BackendProyecto.Entidades.Series", "Series")

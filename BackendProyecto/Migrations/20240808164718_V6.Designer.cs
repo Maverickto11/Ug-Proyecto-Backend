@@ -3,6 +3,7 @@ using System;
 using BackendProyecto.TuDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BackendProyecto.Migrations
 {
     [DbContext(typeof(TmdbContext))]
-    partial class TmdbContextModelSnapshot : ModelSnapshot
+    [Migration("20240808164718_V6")]
+    partial class V6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,7 +90,7 @@ namespace BackendProyecto.Migrations
 
             modelBuilder.Entity("BackendProyecto.Entidades.MovieGenre", b =>
                 {
-                    b.Property<int?>("MovieId")
+                    b.Property<int>("MovieId")
                         .HasColumnType("integer");
 
                     b.Property<int>("GenreId")
@@ -119,70 +122,6 @@ namespace BackendProyecto.Migrations
                     b.HasKey("MovieId");
 
                     b.ToTable("Peliculas");
-                });
-
-            modelBuilder.Entity("BackendProyecto.Entidades.Series", b =>
-                {
-                    b.Property<int>("SeriesId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("SeriesId"));
-
-                    b.Property<string>("BackdropPath")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("NumberOfEpisodes")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("NumberOfSeasons")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Overview")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("PosterPath")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<decimal?>("Rating")
-                        .HasColumnType("numeric");
-
-                    b.Property<DateTime?>("ReleaseDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Tipo")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Trailer")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("VoteCount")
-                        .HasColumnType("integer");
-
-                    b.HasKey("SeriesId");
-
-                    b.ToTable("Series");
-                });
-
-            modelBuilder.Entity("BackendProyecto.Entidades.SeriesGenre", b =>
-                {
-                    b.Property<int?>("SeriesId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("GenreId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("SeriesId", "GenreId");
-
-                    b.HasIndex("GenreId");
-
-                    b.ToTable("SeriesGenres");
                 });
 
             modelBuilder.Entity("BackendProyecto.Entidades.Usuario", b =>
@@ -228,40 +167,14 @@ namespace BackendProyecto.Migrations
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("BackendProyecto.Entidades.SeriesGenre", b =>
-                {
-                    b.HasOne("BackendProyecto.Entidades.Genre", "Genre")
-                        .WithMany("SeriesGenres")
-                        .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .IsRequired();
-
-                    b.HasOne("BackendProyecto.Entidades.Series", "Series")
-                        .WithMany("SeriesGenres")
-                        .HasForeignKey("SeriesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Genre");
-
-                    b.Navigation("Series");
-                });
-
             modelBuilder.Entity("BackendProyecto.Entidades.Genre", b =>
                 {
                     b.Navigation("MovieGenres");
-
-                    b.Navigation("SeriesGenres");
                 });
 
             modelBuilder.Entity("BackendProyecto.Entidades.Movie", b =>
                 {
                     b.Navigation("MovieGenres");
-                });
-
-            modelBuilder.Entity("BackendProyecto.Entidades.Series", b =>
-                {
-                    b.Navigation("SeriesGenres");
                 });
 #pragma warning restore 612, 618
         }

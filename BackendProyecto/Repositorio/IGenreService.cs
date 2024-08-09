@@ -11,6 +11,7 @@ namespace BackendProyecto.Repositorio
     {
         Task<IEnumerable<Genre>> GetGenresAsync();
         Task AddGenreToMovieAsync(int movieId, int genreId);
+        Task AddGenreToSeriesAsync(int serieId, int genreId);
     }
 
 }

@@ -7,19 +7,21 @@ using System.Threading.Tasks;
 
 namespace BackendProyecto.Entidades
 {
-    public class Movie
-    {
-        public int MovieId { get; set; }
-        public string Title { get; set; }
-        public DateTime? ReleaseDate { get; set; }
-        public string Overview { get; set; }
-        public string PosterPath { get; set; }
-        public string? BackdropPath { get; set; }
-        public decimal? Rating { get; set; }
-        public int? VoteCount { get; set; }
-        public int? Duration { get; set; }
+        public class Movie
+        {
+            public int MovieId { get; set; }
+            public string Title { get; set; }
+            public DateTime? ReleaseDate { get; set; }
+            public string Overview { get; set; }
+            public string PosterPath { get; set; }
+            public string? BackdropPath { get; set; }
+            public decimal? Rating { get; set; }
+            public int? VoteCount { get; set; }
+            public int? Duration { get; set; }
+            public string? Trailer { get; set; }
+            public string? Tipo { get; set; }
 
-        [JsonIgnore]
-        public ICollection<MovieGenre?> MovieGenres { get; set; } = new List<MovieGenre?>();
-    }
+            [JsonIgnore]
+            public ICollection<MovieGenre?> MovieGenres { get; set; } = new List<MovieGenre?>();
+        }
 }

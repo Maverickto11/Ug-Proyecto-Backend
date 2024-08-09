@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace BackendProyecto.Entidades
 {
-    public class Genre
+    public class SeriesGenre
     {
+        public int? SeriesId { get; set; }
         public int GenreId { get; set; }
-        public string Name { get; set; }
 
         [JsonIgnore]
-        public ICollection<MovieGenre> MovieGenres { get; set; } = new List<MovieGenre>();
-        public ICollection<SeriesGenre> SeriesGenres { get; set; } = new List<SeriesGenre>();
+        public Series? Series { get; set; }
+        public Genre? Genre { get; set; }
     }
 }

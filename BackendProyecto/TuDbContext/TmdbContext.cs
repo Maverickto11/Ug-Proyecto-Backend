@@ -13,9 +13,11 @@ namespace BackendProyecto.TuDbContext
          public DbSet<Movie> Movies { get; set; }
          public DbSet<Genre> Genres { get; set; }
          public DbSet<MovieGenre> MovieGenres { get; set; }
+         public DbSet<SeriesGenre> SeriesGenres { get; set; }
          public DbSet<Usuario> Usuarios { get; set; }
          public DbSet<Pelicula> Peliculas { get; set; }
-         public DbSet<AutenticacionRespuesta> AutenticacionRespuestas { get; set; }   
+         public DbSet<AutenticacionRespuesta> AutenticacionRespuestas { get; set; }
+         public DbSet<Series> Series { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
          {
@@ -24,10 +26,18 @@ namespace BackendProyecto.TuDbContext
              modelBuilder.Entity<MovieGenre>()
             .HasKey(mg => new { mg.MovieId, mg.GenreId });
 
+            modelBuilder.Entity<SeriesGenre>()
+                .HasKey(sg => new { sg.SeriesId, sg.GenreId });
+
              modelBuilder.Entity<MovieGenre>()
                  .HasOne(mg => mg.Movie)
                  .WithMany(m => m.MovieGenres)  
                  .HasForeignKey(mg => mg.MovieId);
+
+            modelBuilder.Entity<SeriesGenre>()
+                .HasOne(sg => sg.Series)
+                .WithMany(s => s.SeriesGenres)
+                .HasForeignKey(sg => sg.SeriesId);
 
 
              modelBuilder.Entity<MovieGenre>()
@@ -36,6 +46,11 @@ namespace BackendProyecto.TuDbContext
                  .HasForeignKey(mg => mg.GenreId)
                  .OnDelete(DeleteBehavior.SetNull); // Permitir nulo al eliminar
 
+            modelBuilder.Entity<SeriesGenre>()
+                 .HasOne(sg => sg.Genre)
+                 .WithMany(m => m.SeriesGenres)
+                 .HasForeignKey(sg => sg.GenreId)
+                 .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<Pelicula>();
             modelBuilder.Entity<Usuario>().HasKey(u => u.Id);

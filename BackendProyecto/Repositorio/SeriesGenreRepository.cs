@@ -8,25 +8,20 @@ using System.Threading.Tasks;
 
 namespace BackendProyecto.Repositorio
 {
-    public class MovieGenreRepository : IMovieGenreRepository
+    public class SeriesGenreRepository: ISeriesGenreRepository
     {
         private readonly TmdbContext _context;
 
-        public MovieGenreRepository(TmdbContext context)
+        public SeriesGenreRepository(TmdbContext context)
         {
             _context = context;
         }
 
-        public async Task AddMovieGenreAsync(MovieGenre movieGenre)
-        {
-            _context.MovieGenres.Add(movieGenre);
-            await _context.SaveChangesAsync();
-        }
-
-       
-
-
+        public async Task AddSeriesGenreAsync(SeriesGenre seriesGenre)
+       {
+           _context.SeriesGenres.Add(seriesGenre);
+           await _context.SaveChangesAsync();
+       }
 
     }
-
 }

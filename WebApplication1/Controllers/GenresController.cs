@@ -33,6 +33,17 @@ namespace WebApplication1.Controllers
             return NoContent();
         }
 
+        [HttpPost("{serieId}/genresSeries")]
+        public async Task<ActionResult> AddGenreToSeries(int serieId, [FromBody] int genreId)
+        {
+            if (genreId <= 0)
+            {
+                return BadRequest("Invalid genre ID.");
+            }
+            await _genreService.AddGenreToSeriesAsync(serieId, genreId);
+            return NoContent();
+        }
+
 
     }
 
