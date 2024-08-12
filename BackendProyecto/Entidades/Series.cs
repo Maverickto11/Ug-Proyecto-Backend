@@ -22,7 +22,7 @@ namespace BackendProyecto.Entidades
         public string? Trailer { get; set; }
         public string? Tipo { get; set; }
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public ICollection<SeriesGenre?> SeriesGenres { get; set; } = new List<SeriesGenre>();
     }
 }

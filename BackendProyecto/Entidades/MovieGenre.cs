@@ -16,7 +16,7 @@ namespace BackendProyecto.Entidades
         public int GenreId { get; set; }
 
         // Navegación
-        [JsonIgnore]
+        //[JsonIgnore]
         public Movie? Movie { get; set; }
         public Genre? Genre { get; set; }
         //public Series? Series { get; set; }

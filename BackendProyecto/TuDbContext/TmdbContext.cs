@@ -20,6 +20,8 @@ namespace BackendProyecto.TuDbContext
          public DbSet<Series> Series { get; set; }
          public DbSet<Favorite> Favorites { get; set; }
 
+        public DbSet<Comentario> Comentarios { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
          {
              base.OnModelCreating(modelBuilder);

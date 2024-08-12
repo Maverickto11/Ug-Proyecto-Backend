@@ -16,6 +16,13 @@ namespace WebApplication1.Controllers
             _favoriteService = favoriteService;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetFavorites()
+        {
+            var favorites = await _favoriteService.GetFavorites();
+            return Ok(favorites);
+        }
+
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetFavoritesByUserId(int userId)
         {

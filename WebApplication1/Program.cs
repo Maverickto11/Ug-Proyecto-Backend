@@ -28,6 +28,7 @@ builder.Services.AddScoped<ISeriesGenreRepository, SeriesGenreRepository>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IFavoriteRepository, FavoriteRepository>();
 builder.Services.AddScoped<IFavoriteService, FavoriteService>();
+builder.Services.AddScoped<IComentarioRepository, ComentarioRepository>();
 
 //Login
 builder.Services.AddScoped<ILoginRepositoriy, LoginRepositoriy>();

@@ -9,6 +9,7 @@ namespace BackendProyecto.Repositorio
 {
     public interface IFavoriteRepository
     {
+        Task<IEnumerable<Favorite>> GetFavorites();
         Task<IEnumerable<Favorite>> GetFavoritesByUserId(int userId);
         Task<Favorite> AddFavorite(Favorite favorite);
         Task<bool> RemoveFavorite(int userId, int movieId);

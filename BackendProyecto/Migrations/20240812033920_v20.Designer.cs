@@ -3,6 +3,7 @@ using System;
 using BackendProyecto.TuDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BackendProyecto.Migrations
 {
     [DbContext(typeof(TmdbContext))]
-    partial class TmdbContextModelSnapshot : ModelSnapshot
+    [Migration("20240812033920_v20")]
+    partial class v20
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,41 +24,6 @@ namespace BackendProyecto.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("BackendProyecto.Entidades.Comentario", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Contenido")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("Fecha")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int?>("MovieId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("SeriesId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MovieId");
-
-                    b.HasIndex("SeriesId");
-
-                    b.HasIndex("UsuarioId");
-
-                    b.ToTable("Comentarios");
-                });
 
             modelBuilder.Entity("BackendProyecto.Entidades.Favorite", b =>
                 {
@@ -276,29 +244,6 @@ namespace BackendProyecto.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
-                });
-
-            modelBuilder.Entity("BackendProyecto.Entidades.Comentario", b =>
-                {
-                    b.HasOne("BackendProyecto.Entidades.Movie", "Movie")
-                        .WithMany()
-                        .HasForeignKey("MovieId");
-
-                    b.HasOne("BackendProyecto.Entidades.Series", "Series")
-                        .WithMany()
-                        .HasForeignKey("SeriesId");
-
-                    b.HasOne("BackendProyecto.Entidades.Usuario", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Movie");
-
-                    b.Navigation("Series");
-
-                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("BackendProyecto.Entidades.MovieGenre", b =>

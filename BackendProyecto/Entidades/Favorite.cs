@@ -12,7 +12,10 @@ namespace BackendProyecto.Entidades
         public int UserId { get; set; }
         public int MovieId { get; set; }
         public string? MovieTitle { get; set; }
+        public string? Overview { get; set; }
+
         public string? PosterPath { get; set; }
+        public string? BackdropPath { get; set; }
         public DateTime? AddedDate { get; set; }
 
     }

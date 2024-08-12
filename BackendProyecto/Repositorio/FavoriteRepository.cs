@@ -16,6 +16,11 @@ namespace BackendProyecto.Repositorio
             _context = context;
         }
 
+        public async Task<IEnumerable<Favorite>> GetFavorites()
+        {
+            return await _context.Favorites.ToListAsync();
+        }
+
         public async Task<IEnumerable<Favorite>> GetFavoritesByUserId(int userId)
         {
             return await _context.Favorites.Where(f => f.UserId == userId).ToListAsync();

@@ -31,14 +31,16 @@ namespace BackendProyecto.Repositorio
         public async Task<Series> ObtenerSeriesPorId(int seriesId)
         {
             return await _contexto.Set<Series>()
-            //.Include(s => s.SeriesGenres)
-          //  .ThenInclude(sg => sg.Genre)
+            .Include(s => s.SeriesGenres)
+            .ThenInclude(sg => sg.Genre)
             .FirstOrDefaultAsync(s => s.SeriesId == seriesId);
         }
         public async Task<IEnumerable<Series>> ObtenerSeriesPorGenero(int genreId)
         {
             return await _contexto.Set<Series>()
             .Where(s => s.SeriesGenres.Any(sg => sg.GenreId == genreId))
+            .Include(s => s.SeriesGenres)
+            .ThenInclude(sg => sg.Genre)
             .ToListAsync();
         }
 

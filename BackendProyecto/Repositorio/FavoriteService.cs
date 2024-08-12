@@ -16,6 +16,11 @@ namespace BackendProyecto.Repositorio
             _favoriteRepository = favoriteRepository;
         }
 
+        public Task<IEnumerable<Favorite>> GetFavorites()
+        {
+            return _favoriteRepository.GetFavorites();
+        }
+
         public Task<IEnumerable<Favorite>> GetFavoritesByUserId(int userId)
         {
             return _favoriteRepository.GetFavoritesByUserId(userId);

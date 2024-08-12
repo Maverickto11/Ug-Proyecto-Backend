@@ -12,7 +12,7 @@ namespace BackendProyecto.Entidades
         public int? SeriesId { get; set; }
         public int GenreId { get; set; }
 
-        [JsonIgnore]
+       // [JsonIgnore]
         public Series? Series { get; set; }
         public Genre? Genre { get; set; }
     }
